@@ -21,7 +21,7 @@ public class cliente implements Runnable{
             client = new Socket(ip, puerto);
 
             out = new PrintWriter(client.getOutputStream(), true);
-            out = new PrintWriter(ip);
+
             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
             InputHandler inHandler = new InputHandler();

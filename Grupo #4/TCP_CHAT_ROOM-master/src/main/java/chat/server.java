@@ -85,15 +85,21 @@ public class server implements Runnable {
               nickname = in.readLine();
               //falta verificar que el nick que se ingrese este bien
                 System.out.println(nickname + " conectado!");
+
+                listaUsuarios.agregarUsuario(nickname+client.getRemoteSocketAddress().toString());
                 broadcast(nickname + " se unió al chat");
-                // client.getRemoteSocketAddress().toString() la ip
-                listaUsuarios.agregarUsuario(nickname);
+
+
 
                 String message;
                 while((message = in.readLine()) != null){
 
-                    //identificarProtocolo(message,  client.getRemoteSocketAddress().toString())
-                    if(message.startsWith("/nick ")){
+
+                    if(message.startsWith("/")){
+
+                        String h = protocolo.identificarProtocolo(message+client.getRemoteSocketAddress());
+                        System.out.println(h);
+                        /*
                         String[] messageSplit = message.split(" ", 2);
                         if(messageSplit.length == 2){
                             broadcast(nickname + " se cambio el nombre a "+ messageSplit[1] );
@@ -102,7 +108,7 @@ public class server implements Runnable {
                             out.println("El nombre de usuario fue satisfactoriamente cambiado a: "+ nickname);
                         } else{
                             out.println("No se brindó un nombre de usuario");
-                        }
+                        }*/
                     } else if(message.startsWith("/salir")){
                         broadcast(nickname + " salio del chat ):");
                         System.out.println(nickname + " salio del chat ):");
