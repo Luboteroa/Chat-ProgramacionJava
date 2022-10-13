@@ -16,8 +16,12 @@ public class cliente implements Runnable{
     @Override
     public void run() {
         try{
-            client = new Socket("127.0.0.1", 9999);
+            String ip = "127.0.0.1";
+            int puerto = 9999;
+            client = new Socket(ip, puerto);
+
             out = new PrintWriter(client.getOutputStream(), true);
+            out = new PrintWriter(ip);
             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
             InputHandler inHandler = new InputHandler();
@@ -55,6 +59,7 @@ public class cliente implements Runnable{
             try{
                 BufferedReader inReader = new BufferedReader(new InputStreamReader(System.in));
                 while(!done){
+
                     String message = inReader.readLine();
                     if(message.equals("/salir")){
                         out.println(message);
