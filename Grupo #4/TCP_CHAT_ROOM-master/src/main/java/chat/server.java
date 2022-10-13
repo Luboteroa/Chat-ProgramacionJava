@@ -80,18 +80,19 @@ public class server implements Runnable {
             try{
               out = new PrintWriter(client.getOutputStream(), true);
               in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-
               out.println("Bienvenido");
               out.println("Por favor ingrese un nombre de usuario: ");
               nickname = in.readLine();
               //falta verificar que el nick que se ingrese este bien
                 System.out.println(nickname + " conectado!");
                 broadcast(nickname + " se unió al chat");
-
+                // client.getRemoteSocketAddress().toString() la ip
                 listaUsuarios.agregarUsuario(nickname);
 
                 String message;
                 while((message = in.readLine()) != null){
+
+                    //identificarProtocolo(message,  client.getRemoteSocketAddress().toString())
                     if(message.startsWith("/nick ")){
                         String[] messageSplit = message.split(" ", 2);
                         if(messageSplit.length == 2){
