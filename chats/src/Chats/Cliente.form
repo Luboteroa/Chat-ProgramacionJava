@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Chats.Cliente">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="335" height="310"/>
+    </constraints>
+    <properties>
+      <background color="-16119286"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="8a4bb" class="javax.swing.JLabel">
+        <constraints/>
+        <properties>
+          <background color="-8978190"/>
+          <icon value="Chats/Icono_usuario (1).png"/>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="4c53" class="javax.swing.JTextArea" binding="Usuario_nick">
+        <constraints/>
+        <properties>
+          <background color="-8978190"/>
+          <columns value="15"/>
+          <editable value="true"/>
+          <enabled value="true"/>
+          <font name="Roboto Slab Black" size="14" style="0"/>
+          <foreground color="-1"/>
+          <lineWrap value="false"/>
+          <margin top="0" left="30" bottom="0" right="0"/>
+          <requestFocusEnabled value="false"/>
+          <rows value="2"/>
+        </properties>
+      </component>
+      <component id="7accb" class="javax.swing.JTextArea" binding="textArea_Chat">
+        <constraints/>
+        <properties>
+          <background color="-16119286"/>
+          <columns value="35"/>
+          <requestFocusEnabled value="false"/>
+          <rows value="10"/>
+        </properties>
+      </component>
+      <component id="1a73" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+        <constraints/>
+        <properties>
+          <columns value="25"/>
+          <font/>
+        </properties>
+      </component>
+      <component id="eaac0" class="javax.swing.JButton" binding="enviarButton" default-binding="true">
+        <constraints/>
+        <properties>
+          <background color="-8978190"/>
+          <font name="Roboto Slab ExtraBold" size="14" style="0"/>
+          <foreground color="-1"/>
+          <text value="Enviar"/>
+        </properties>
+      </component>
+      <component id="17078" class="javax.swing.JButton" binding="grupoButton" default-binding="true">
+        <constraints/>
+        <properties>
+          <background color="-8978190"/>
+          <font name="Roboto Slab Black" size="14" style="0"/>
+          <foreground color="-1"/>
+          <text value="Grupo"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
