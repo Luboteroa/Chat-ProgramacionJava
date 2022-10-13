@@ -19,12 +19,23 @@ public class protocolo {
     }
 
     // falta el lector de protocolos, etiqueta comando dato emisor
-    public void identificarProtocolo(String comandoingresado){
-
+    public static String identificarProtocolo(String comandoingresado){
+        protocolo Objprotocolo = null;
         String[] infoProtocolo = comandoingresado.split("/");
-        this.comando = infoProtocolo[0];
-        this.dato = infoProtocolo[1];
-        //this.emisor = infoProtocolo[2];
+        if(infoProtocolo.length ==4){
+            String comando = infoProtocolo[1];
+            String dato = infoProtocolo[2];
+            String emisor = infoProtocolo[3];
+            Objprotocolo = new protocolo(comando, dato, emisor);
+
+
+            return (Objprotocolo.emisor).toString();
+        }else{
+            return "Comando ingresado no valido";
+        }
+
+
+
         //if (comandoingresado.comando == "mensaje")
     }
 }
