@@ -13,6 +13,7 @@ public class cliente implements Runnable{
     private PrintWriter out;
     private boolean done;
 
+
     @Override
     public void run() {
         try{
@@ -61,10 +62,16 @@ public class cliente implements Runnable{
                 while(!done){
 
                     String message = inReader.readLine();
-                    if(message.equals("/salir")){
-                        out.println(message);
-                        inReader.close();
-                        shutdown();
+                    if(message.startsWith("/")){
+                        String h = protocolo.identificarProtocolo(message+client.getRemoteSocketAddress());
+                        
+                        if(h == "cerrar"){
+                            out.println(message);
+                            inReader.close();
+                            client.close();
+                        }
+
+                        //shutdown();
                     } else {
                         out.println(message);
                     }

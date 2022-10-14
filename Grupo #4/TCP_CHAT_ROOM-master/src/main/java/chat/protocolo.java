@@ -1,5 +1,5 @@
 package chat;
-
+import java.io.IOException;
 public class protocolo {
 
     public String comando;
@@ -48,7 +48,9 @@ public class protocolo {
                 case "cerrarconexion":
                     //metodo
                     //protocolo.cerrarconexion();
-                    break;
+
+                    return "cerrar";
+
 
                 default:
                     System.out.println("El comando no existe ");

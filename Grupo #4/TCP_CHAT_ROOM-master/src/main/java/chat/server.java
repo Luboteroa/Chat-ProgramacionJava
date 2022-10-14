@@ -99,6 +99,9 @@ public class server implements Runnable {
 
                         String h = protocolo.identificarProtocolo(message+client.getRemoteSocketAddress());
                         System.out.println(h);
+
+
+
                         /*
                         String[] messageSplit = message.split(" ", 2);
                         if(messageSplit.length == 2){
@@ -109,7 +112,7 @@ public class server implements Runnable {
                         } else{
                             out.println("No se brindó un nombre de usuario");
                         }*/
-                    } else if(message.startsWith("/salir")){
+                    } else if(message.startsWith("salir")){
                         broadcast(nickname + " salio del chat ):");
                         System.out.println(nickname + " salio del chat ):");
                         //shutDownIndividualConnection(); desconecta el server?
