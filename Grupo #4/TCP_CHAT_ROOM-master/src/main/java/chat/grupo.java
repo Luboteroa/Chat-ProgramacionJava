@@ -3,29 +3,22 @@ package chat;
 import java.util.ArrayList;
 
 public class grupo {
-    static ArrayList<String> grupos;
 
+    private static ArrayList<String> grupos = new ArrayList<String>();
 
-    public static void crearListaGrupos() {
-        grupos = new ArrayList();
+    public static void crearGrupos() {
         grupos.add("GLOBAL");
-        System.out.println(grupos.get(0));
     }
 
-    public static String crearGrupo(String nombre) {
-        grupos.add(nombre);
-        return "Grupo Creado Con Exito!!!";
-    }
-
+//    String crearGrupo(String nombre) {
+//        grupos.add(nombre);
+//        return "Grupo Creado Con Exito!!!";
+//    }
+//
     public static String mostrarGrupos() {
-        StringBuilder sb = new StringBuilder();
-        for (String g : grupos)
-        {
-            sb.append(g);
-            sb.append("\t");
-        }
-        return sb.toString();
+        return String.join(", ", grupos);
     }
+//    public static
 
     /*
     public String validacionNombre(String nombre){

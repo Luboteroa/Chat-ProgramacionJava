@@ -15,14 +15,15 @@ public class server implements Runnable {
 
     private ArrayList<ConnectionHandler> connections;
     private ServerSocket server;
+
+    private static ArrayList<cliente> usuarios = new ArrayList<cliente>();
     private boolean done;
     private ExecutorService pool;
 
     public server(){
         connections = new ArrayList<>();
         done = false;
-        grupo.crearListaGrupos();
-        listaUsuarios.crearlistaUsuarios();
+        grupo.crearGrupos();
     }
 
     @Override
@@ -35,7 +36,7 @@ public class server implements Runnable {
                 Socket client = server.accept();
                 ConnectionHandler handler = new ConnectionHandler(client);
                 cliente cli = new cliente(handler, client.getRemoteSocketAddress().toString(), "GLOBAL");
-                listaUsuarios.agregarUsuario(cli);
+                usuarios = listaUsuarios.agregarUsuario(cli, usuarios);
                 pool.execute(handler);
             }
 
@@ -48,18 +49,17 @@ public class server implements Runnable {
         }
     }
 
-    public  void broadcast(String message){
-        for(cliente ch: listaUsuarios.listUsuarios){
+    public void broadcast(String message){
+        for(cliente ch: usuarios){
             if(ch != null){
                 ch.handler.sendMessage(message);
             }
-            System.out.println(ch.toString());
         }
     }
 
-    public  static void broadcastByIp(String message, String ip){
-        for(cliente ch: listaUsuarios.listUsuarios){
-            if(ch.ip == ip){
+    public static void broadcastByIp(String message, String ip){
+        for(cliente ch: usuarios){
+            if(ch != null){
                 ch.handler.sendMessage(message);
             }
         }
@@ -71,7 +71,7 @@ public class server implements Runnable {
         if(!server.isClosed()){
             server.close();
         }
-        for(cliente ch: listaUsuarios.listUsuarios){
+        for(cliente ch: usuarios){
             ch.handler.shutDownIndividualConnection();
         }
     }

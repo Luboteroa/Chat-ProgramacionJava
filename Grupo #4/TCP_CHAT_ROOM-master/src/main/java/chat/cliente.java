@@ -39,8 +39,6 @@ public class cliente implements Runnable{
     }
 
 
-
-
     @Override
     public void run() {
         try{

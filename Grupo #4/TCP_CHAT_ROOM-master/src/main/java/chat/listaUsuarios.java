@@ -1,17 +1,15 @@
 package chat;
 import java.util.ArrayList;
 public class listaUsuarios {
-
-    static ArrayList<cliente> listUsuarios;
-
-
-    public static void crearlistaUsuarios() {
-        listUsuarios = new ArrayList();
+    public  static ArrayList<cliente> agregarUsuario(cliente cli, ArrayList<cliente> usuarios) {
+        usuarios.add(cli);
+        return usuarios;
     }
 
-    public static void agregarUsuario(cliente cli) {
-        listUsuarios.add(cli);
-    }
+//    public ArrayList<cliente> getListaUsuarios() {
+//
+//        return usuarios;
+//    }
 
 //    public static String usuariosRegistrados() {
 //        String usuariosRegistrados = "";
