@@ -1,5 +1,8 @@
 package chat;
 import java.io.IOException;
+
+import static chat.grupo.*;
+
 public class protocolo {
 
     public String comando;
@@ -22,8 +25,8 @@ public class protocolo {
     public static String identificarProtocolo(String comandoingresado) throws IOException {
         protocolo Objprotocolo = null;
         String[] infoProtocolo = comandoingresado.split("/");
-        if(infoProtocolo.length ==4){ //La cantidad no seria 3???? //es con 4 porque el primer iterador (0) es vacio
-
+        System.out.println(mostrarGrupos());
+        if(infoProtocolo.length == 4){ //La cantidad no seria 3???? //es con 4 porque el primer iterador (0) es vacio
             String comando = infoProtocolo[1];
             String dato = infoProtocolo[2];
             String emisor = infoProtocolo[3];
@@ -35,9 +38,16 @@ public class protocolo {
                     break;
                 case "creargrupo":
                     //metodo
+                    System.out.println(Objprotocolo.dato);
+                    crearGrupo(Objprotocolo.dato);
+                    System.out.println(Objprotocolo.emisor);
+                    server.broadcastByIp("Grupo Creado Con Exito", Objprotocolo.emisor);
                     break;
                 case "borrargrupo":
                     //metodo
+                    break;
+                case "mostrargrupos":
+                    server.broadcastByIp(grupo.mostrarGrupos(), Objprotocolo.emisor);
                     break;
                 case "salirgrupo":
                     //metodo

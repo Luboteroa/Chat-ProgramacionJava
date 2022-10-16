@@ -8,10 +8,37 @@ import java.net.Socket;
 
 public class cliente implements Runnable{
 
+    server.ConnectionHandler handler;
+    String grupo;
+
+    String nombre;
+    String ip;
     private Socket client;
+
+    @Override
+    public String toString() {
+        return "cliente{" +
+                "handler=" + this.handler +
+                ", grupo='" + this.grupo + '\'' +
+                ", nombre='" + this.nombre + '\'' +
+                ", ip='" + this.ip + '\'' +
+                '}';
+    }
+
     private BufferedReader in;
     private PrintWriter out;
     private boolean done;
+
+    public cliente(server.ConnectionHandler handler, String ip, String grupo){
+        this.handler = handler;
+        this.grupo = grupo;
+        this.ip = ip;
+    }
+
+    public cliente(){
+    }
+
+
 
 
     @Override
@@ -32,6 +59,7 @@ public class cliente implements Runnable{
             String inMessage;
             while((inMessage = in.readLine()) != null){
                 System.out.println(inMessage);
+
             }
         } catch (IOException e){
             //TODO: agregar para server inactivo
