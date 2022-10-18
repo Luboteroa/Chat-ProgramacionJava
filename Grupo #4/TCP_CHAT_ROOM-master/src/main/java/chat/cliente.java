@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class cliente implements Runnable{
 
@@ -36,6 +37,10 @@ public class cliente implements Runnable{
     }
 
     public cliente(){
+    }
+
+    public void setGrupo(String nombre){
+        this.grupo = nombre;
     }
 
 
@@ -89,18 +94,51 @@ public class cliente implements Runnable{
 
                     String message = inReader.readLine();
                     if(message.startsWith("/")){
-                        String h = protocolo.identificarProtocolo(message+client.getRemoteSocketAddress());
-                        
+                        protocolo h = protocolo.identificarProtocolo(message+client.getRemoteSocketAddress());
+
+
+                        switch(h.comando){
+
+                            case "mensaje":
+                                    server.broadcastbygroup(cliente.this.grupo,h.dato);
+                                break;
+                            case "creargrupo":
+                                chat.grupo.crearGrupo(h.dato);
+                                server.messageServer("Grupo | "+h.dato+" | creado con exito");
+                                cliente.this.setGrupo(h.dato);
+                                break;
+
+                            case "mostrargrupos":
+
+                                ArrayList<String> groups = new ArrayList<>(chat.grupo.mostrarGrupos());
+                                server.messageServer("Grupos creados: ");
+                                for(String x: groups){
+                                    server.messageServer(x);
+                                }
+
+                                break;
+                            default:
+                                System.out.println("hey");
+                        }
+
+                        /*
                         if(h == "cerrar"){
                             out.println(message);
                             inReader.close();
                             client.close();
-                        }
+                        }*/
+
+
+
+
+
 
                         //shutdown();
                     } else {
                         out.println(message);
                     }
+
+
                 }
             } catch (IOException e){
                 shutdown();
