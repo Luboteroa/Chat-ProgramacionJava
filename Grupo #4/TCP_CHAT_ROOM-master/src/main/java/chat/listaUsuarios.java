@@ -1,25 +1,23 @@
 package chat;
 import java.util.ArrayList;
 public class listaUsuarios {
-
-    static ArrayList<String> nicknames;
-
-
-    public static void crearlistaUsuarios() {
-        nicknames = new ArrayList();
+    public  static ArrayList<cliente> agregarUsuario(cliente cli, ArrayList<cliente> usuarios) {
+        usuarios.add(cli);
+        return usuarios;
     }
 
-    public static void agregarUsuario(String nickname) {
-        nicknames.add(nickname);
-    }
+//    public ArrayList<cliente> getListaUsuarios() {
+//
+//        return usuarios;
+//    }
 
-    public static String usuariosRegistrados() {
-        String usuariosRegistrados = "";
-        for (int i = 0; i < nicknames.size(); i++) {
-            usuariosRegistrados += nicknames.get(i).toString() + "\n";
-        }
-        return usuariosRegistrados;
-    }
+//    public static String usuariosRegistrados() {
+//        String usuariosRegistrados = "";
+//        for (int i = 0; i < cli.size(); i++) {
+//            usuariosRegistrados += cli.get(i).toString() + "\n";
+//        }
+//        return usuariosRegistrados;
+//    }
 
 
 

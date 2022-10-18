@@ -1,4 +1,7 @@
 package chat;
+import java.io.IOException;
+
+import static chat.grupo.*;
 
 public class protocolo {
 
@@ -19,23 +22,59 @@ public class protocolo {
     }
 
     // falta el lector de protocolos, etiqueta comando dato emisor
-    public static String identificarProtocolo(String comandoingresado){
+    public static String identificarProtocolo(String comandoingresado) throws IOException {
         protocolo Objprotocolo = null;
         String[] infoProtocolo = comandoingresado.split("/");
-        if(infoProtocolo.length ==4){
+        if(infoProtocolo.length == 4){ //La cantidad no seria 3???? //es con 4 porque el primer iterador (0) es vacio
             String comando = infoProtocolo[1];
             String dato = infoProtocolo[2];
             String emisor = infoProtocolo[3];
             Objprotocolo = new protocolo(comando, dato, emisor);
 
+            switch (Objprotocolo.comando) {
+                case "mensaje":
+                    //metodo
+                    break;
+                case "creargrupo":
+                    //metodo
+                    server.broadcastByIp("Grupo Creado Con Exito", Objprotocolo.emisor);
+                    break;
+                case "borrargrupo":
+                    //metodo
+                    break;
+                case "mostrargrupos":
+                    server.broadcastByIp("test", Objprotocolo.emisor);
+                    break;
+                case "salirgrupo":
+                    //metodo
+                    break;
+                case "entrargrupo":
+                    //metodo
+                    break;
+                case "cerrarconexion":
+                    //metodo
+                    //protocolo.cerrarconexion();
 
-            return (Objprotocolo.emisor).toString();
+                    return "cerrar";
+
+
+                default:
+                    System.out.println("El comando no existe ");
+                    break;
+            }
+
+            /*if(infoProtocolo[1].equals("mensaje") || infoProtocolo[1].equals("creargrupo") ||
+               infoProtocolo[1].equals("borrargrupo") || infoProtocolo[1].equals("salirgrupo ||") ||  // queda un poco mas ordenado con switch
+               infoProtocolo[1].equals("entrargrupo") || infoProtocolo[1].equals("cerrarconexion")){
+               }else{
+                return "Comando incorrecto.";
+            }
+             */
+            return null;
         }else{
-            return "Comando ingresado no valido";
+            return "linea no valida";
         }
 
 
-
-        //if (comandoingresado.comando == "mensaje")
     }
 }

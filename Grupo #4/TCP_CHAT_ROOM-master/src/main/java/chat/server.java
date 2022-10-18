@@ -10,17 +10,20 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 public class server implements Runnable {
 
     private ArrayList<ConnectionHandler> connections;
     private ServerSocket server;
+
+    private static ArrayList<cliente> usuarios = new ArrayList<cliente>();
     private boolean done;
     private ExecutorService pool;
 
     public server(){
         connections = new ArrayList<>();
         done = false;
-        listaUsuarios.crearlistaUsuarios();
+        grupo.crearGrupos();
     }
 
     @Override
@@ -32,7 +35,8 @@ public class server implements Runnable {
             while(!done){
                 Socket client = server.accept();
                 ConnectionHandler handler = new ConnectionHandler(client);
-                connections.add(handler);
+                cliente cli = new cliente(handler, client.getRemoteSocketAddress().toString(), "GLOBAL");
+                usuarios = listaUsuarios.agregarUsuario(cli, usuarios);
                 pool.execute(handler);
             }
 
@@ -45,10 +49,18 @@ public class server implements Runnable {
         }
     }
 
-    public  void broadcast(String message){
-        for(ConnectionHandler ch: connections){
+    public void broadcast(String message){
+        for(cliente ch: usuarios){
             if(ch != null){
-                ch.sendMessage(message);
+                ch.handler.sendMessage(message);
+            }
+        }
+    }
+
+    public static void broadcastByIp(String message, String ip){
+        for(cliente ch: usuarios){
+            if(ch != null){
+                ch.handler.sendMessage(message);
             }
         }
     }
@@ -59,8 +71,8 @@ public class server implements Runnable {
         if(!server.isClosed()){
             server.close();
         }
-        for(ConnectionHandler ch: connections){
-            ch.shutDownIndividualConnection();
+        for(cliente ch: usuarios){
+            ch.handler.shutDownIndividualConnection();
         }
     }
 
@@ -85,8 +97,6 @@ public class server implements Runnable {
               nickname = in.readLine();
               //falta verificar que el nick que se ingrese este bien
                 System.out.println(nickname + " conectado!");
-
-                listaUsuarios.agregarUsuario(nickname+client.getRemoteSocketAddress().toString());
                 broadcast(nickname + " se unió al chat");
 
 
@@ -99,6 +109,9 @@ public class server implements Runnable {
 
                         String h = protocolo.identificarProtocolo(message+client.getRemoteSocketAddress());
                         System.out.println(h);
+
+
+
                         /*
                         String[] messageSplit = message.split(" ", 2);
                         if(messageSplit.length == 2){
@@ -109,7 +122,7 @@ public class server implements Runnable {
                         } else{
                             out.println("No se brindó un nombre de usuario");
                         }*/
-                    } else if(message.startsWith("/salir")){
+                    } else if(message.startsWith("salir")){
                         broadcast(nickname + " salio del chat ):");
                         System.out.println(nickname + " salio del chat ):");
                         //shutDownIndividualConnection(); desconecta el server?
@@ -117,10 +130,10 @@ public class server implements Runnable {
                         broadcast(nickname + ": " +message);
                     }
 
-                    if(message.startsWith("/listausuarios ")){
-                        String h = listaUsuarios.usuariosRegistrados();
-                        System.out.println(h);
-                    }
+//                    if(message.startsWith("/listausuarios ")){
+//                        String h = listaUsuarios.usuariosRegistrados();
+//                        System.out.println(h);
+//                    }
                 }
             }
             catch (IOException e){
