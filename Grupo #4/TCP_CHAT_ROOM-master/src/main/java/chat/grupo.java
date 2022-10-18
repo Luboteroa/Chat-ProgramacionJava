@@ -20,23 +20,21 @@ public class grupo {
 
         return grupos;
     }
-//    public static
-
-    /*
-    public String validacionNombre(String nombre){
-        //Le quita los espacios a la cadena
-        String nombreSinEspacios = nombre.replaceAll("\\s", "");
-        boolean esValido = true;
-        for(int i=0; i<nombreSinEspacios.length(); i++){
-            //Evalua cada caracter de la cadena y lo pone en mayuscula
-            char caracter = nombreSinEspacios.toUpperCase().charAt(i);
-            //Se obtiene el valor en codigo ASCII de cada caracter
-            int valorASCII = (int)caracter;
-            //Valida si el primer caracter es un numero, si asi es, se sale del ciclo
-            if(i==0 && (valorASCII >= 48 || valorASCII <= 64)){
-                System.out.println("El primer caracter no puede ser un numero");
-                esValido = false;
-                break;
+    public static String normalizacionNombre(String nombre) {
+        String nombSinEspacios = nombre.replaceAll(" ", "");
+        String nombreNormalizado = nombSinEspacios.toUpperCase();
+        return nombreNormalizado;
+    }
+    public static int validacionNickname(String nickNormalizado, int caracterEspecial){
+        int valorASCII=0;
+        System.out.println("-----------*****-----------");
+        for(int j=0; j < nickNormalizado.length(); j++){
+            char caracter = nickNormalizado.charAt(j);
+            valorASCII = (int)caracter;
+            //System.out.println("posición: "+ j+ " Valor ASCII "+valorASCII);
+            if(j == 0 && (valorASCII < 65 || valorASCII > 90)){
+                System.out.println("entra al 1er if en la iteracion #"+j);
+                caracterEspecial++;
             }
             if(j>0 && (valorASCII < 48 || valorASCII > 90) || (valorASCII > 57 && valorASCII < 65)){
                 System.out.println("entra al 2do if en la iteracion #"+j);
@@ -45,6 +43,4 @@ public class grupo {
         }
         return caracterEspecial;
     }
-
-     */
 }
