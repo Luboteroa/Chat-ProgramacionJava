@@ -38,15 +38,12 @@ public class grupo {
                 esValido = false;
                 break;
             }
-            if(i > 0 && (valorASCII > 57 || valorASCII < 65) && valorASCII != 165 && (valorASCII < 48 || valorASCII > 90)){
-                esValido = false;
+            if(j>0 && (valorASCII < 48 || valorASCII > 90) || (valorASCII > 57 && valorASCII < 65)){
+                System.out.println("entra al 2do if en la iteracion #"+j);
+                caracterEspecial++;
             }
         }
-        if(!esValido){
-            System.out.println("El nombre de usuario NO puede contener caracteres especiales");
-        }
-        String nombreValidado = nombreSinEspacios.toUpperCase();
-        return nombreValidado;
+        return caracterEspecial;
     }
 
      */

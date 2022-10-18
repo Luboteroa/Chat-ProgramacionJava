@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -102,7 +103,6 @@ public class server implements Runnable {
     }
 
     class ConnectionHandler implements Runnable {
-
         private Socket client;
         private BufferedReader in;
         private PrintWriter out;
@@ -118,9 +118,22 @@ public class server implements Runnable {
               out = new PrintWriter(client.getOutputStream(), true);
               in = new BufferedReader(new InputStreamReader(client.getInputStream()));
               out.println("Bienvenido");
-              out.println("Por favor ingrese un nombre de usuario: ");
-              nickname = in.readLine();
-              //falta verificar que el nick que se ingrese este bien
+              int numEspeciales=0;
+              for(int i =0; i <= numEspeciales; i++){
+                    if(numEspeciales>0){
+                        out.println("WARNING: El nombre de usuario contiene caracteres especiale. \n Intente con otro");
+                        numEspeciales=0;
+                    }
+                  //System.out.println(numEspeciales+" --> (1ra) BANDERA, iteracion: "+i);
+                  out.println("Ingrese un nick para su usuario: ");
+                  nickname = in.readLine();
+                  String nickNormalizado = grupo.normalizacionNombre(nickname);
+                  //System.out.println("---------> "+nickNormalizado);
+                  numEspeciales = grupo.validacionNickname(nickNormalizado, numEspeciales);
+                  //System.out.println(numEspeciales+" --> FIN DEL FOR");
+                  if(numEspeciales==0){break;}
+              }
+                out.println("***--->NOMBRE VALIDADO CON EXITO<---***");
                 System.out.println(nickname + " conectado!");
                 broadcast(nickname + " se unio al chat");
 
